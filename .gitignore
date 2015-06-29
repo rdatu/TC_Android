@@ -28,3 +28,7 @@ proguard/
 # Log Files
 *.log
 
+#Eclipse auto generated files
+.metadata
+.recommenders
+
