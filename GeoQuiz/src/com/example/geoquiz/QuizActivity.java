@@ -51,18 +51,27 @@ public class QuizActivity extends Activity {
 				checkAnswer(false);
 			}
 		});
-		
+
 		mNextButton = (Button) findViewById(R.id.next_button);
 		mNextButton.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-				UpdateQuestion();			
+				nextQuestion();
 			}
 		});
-		
+
+		// Challenge 1: Adding Listener to TextView
+		mQuestionTextView.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				nextQuestion();
+			}
+		});
+
 		UpdateQuestion();
 	}
 
@@ -72,22 +81,26 @@ public class QuizActivity extends Activity {
 		getMenuInflater().inflate(R.menu.quiz, menu);
 		return true;
 	}
-	
-	private void checkAnswer(boolean userPressedTrue){
+
+	private void nextQuestion() {
+		mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+		UpdateQuestion();
+	}
+
+	private void checkAnswer(boolean userPressedTrue) {
 		boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
-		
+
 		int messageResId = 0;
-		if(userPressedTrue == answerIsTrue){
+		if (userPressedTrue == answerIsTrue) {
 			messageResId = R.string.correct_toast;
-		}
-		else{
+		} else {
 			messageResId = R.string.incorrect_toast;
 		}
-		
+
 		Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
 	}
-	
-	private void UpdateQuestion(){
+
+	private void UpdateQuestion() {
 		int question = mQuestionBank[mCurrentIndex].getQuestion();
 		mQuestionTextView.setText(question);
 	}
