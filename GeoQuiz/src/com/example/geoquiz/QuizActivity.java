@@ -17,6 +17,7 @@ public class QuizActivity extends Activity {
 	private Button mPrevButton;
 	private TextView mQuestionTextView;
 	private static final String TAG = "QuizActivity";
+	private static final String KEY_INDEX = "index";
 
 	private TrueFalse[] mQuestionBank = new TrueFalse[] {
 			new TrueFalse(R.string.question_oceans, true),
@@ -86,8 +87,19 @@ public class QuizActivity extends Activity {
 				prevQuestion();
 			}
 		});
+		
+		if(savedInstanceState != null){
+			mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+		}
 
 		UpdateQuestion();
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+		super.onSaveInstanceState(savedInstanceState);
+		Log.i(TAG, "onSaveInstanceState");
+		savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
 	}
 
 	@Override
