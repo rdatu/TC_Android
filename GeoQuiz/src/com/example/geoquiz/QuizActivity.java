@@ -16,7 +16,7 @@ public class QuizActivity extends Activity {
 	private Button mNextButton;
 	private Button mPrevButton;
 	private TextView mQuestionTextView;
-	private static final String TAG = "QuizActivity";  
+	private static final String TAG = "QuizActivity";
 
 	private TrueFalse[] mQuestionBank = new TrueFalse[] {
 			new TrueFalse(R.string.question_oceans, true),
@@ -31,8 +31,8 @@ public class QuizActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_quiz);
-		
-		Log.d(TAG, "OnCreate(Bundle) called"); 
+
+		Log.d(TAG, "OnCreate(Bundle) called");
 
 		mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
 		int question = mQuestionBank[mCurrentIndex].getQuestion();
@@ -76,10 +76,10 @@ public class QuizActivity extends Activity {
 				nextQuestion();
 			}
 		});
-		
+
 		mPrevButton = (Button) findViewById(R.id.prev_button);
 		mPrevButton.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -96,33 +96,33 @@ public class QuizActivity extends Activity {
 		getMenuInflater().inflate(R.menu.quiz, menu);
 		return true;
 	}
-	
+
 	@Override
-	public void onStart(){
+	public void onStart() {
 		super.onStart();
-		Log.d(TAG,"onStart() called");
+		Log.d(TAG, "onStart() called");
 	}
-	
+
 	@Override
-	public void onPause(){
+	public void onPause() {
 		super.onPause();
-		Log.d(TAG,"onPause() called");
+		Log.d(TAG, "onPause() called");
 	}
-	
+
 	@Override
-	public void onResume(){
+	public void onResume() {
 		super.onResume();
 		Log.d(TAG, "onResume() called");
 	}
-	
+
 	@Override
-	public void onStop(){
+	public void onStop() {
 		super.onStop();
 		Log.d(TAG, "onStop() called");
 	}
-	
+
 	@Override
-	public void onDestroy(){
+	public void onDestroy() {
 		super.onDestroy();
 		Log.d(TAG, "onDestroy() called");
 	}
@@ -131,8 +131,10 @@ public class QuizActivity extends Activity {
 		mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
 		UpdateQuestion();
 	}
-	private void prevQuestion(){
-		mCurrentIndex = (mCurrentIndex - 1) % mQuestionBank.length;
+
+	private void prevQuestion() {
+		mCurrentIndex = mCurrentIndex == 0 ? mQuestionBank.length - 1
+				: (mCurrentIndex - 1) % mQuestionBank.length;
 		UpdateQuestion();
 	}
 
